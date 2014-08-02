@@ -25,13 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>maxSpeed = 30
+            <string>maxSpeed = 26
 maxReverse = -15
 acceleration = 5
 deceleration = 2.5
 turnSpeed = 5
-controller = 0
-friction = 1.5
+controller = 2
+friction = 1
 
 
 </string>

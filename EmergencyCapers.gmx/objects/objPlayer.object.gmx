@@ -53,11 +53,7 @@ b_button = gamepad_button_check(controller,gp_face2)
           <argument>
             <kind>1</kind>
             <string>if leftStick &gt; .25 or leftStick &lt; -.25
-{
-if a_button or b_button
     direction += leftStick * turnSpeed;
-    else direction += leftStick;
-}
 
 if a_button and !b_button
     {
