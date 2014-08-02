@@ -7,6 +7,7 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\sprite0</sprite>
+    <sprite>sprites\sprite3</sprite>
     <sprite>sprites\sprite1</sprite>
     <sprite>sprites\sprite2</sprite>
   </sprites>
@@ -18,6 +19,11 @@
       <object>objects\objPlayerPolice</object>
       <object>objects\objPlayerAmbulance</object>
       <object>objects\objPlayerFire</object>
+    </objects>
+    <objects name="Zone">
+      <object>objects\objZone</object>
+      <object>objects\objZoneController</object>
+      <object>objects\objZoneSpawn</object>
     </objects>
   </objects>
   <rooms name="rooms">
