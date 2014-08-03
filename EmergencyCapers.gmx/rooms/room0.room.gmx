@@ -52,8 +52,14 @@
   </views>
   <instances>
     <instance objName="objPlayerPolice" x="192" y="160" name="inst_A5D3E22B" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objPlayerFire" x="288" y="192" name="inst_D883DD49" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="objPlayerAmbulance" x="224" y="384" name="inst_84337B24" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objPlayerFire" x="512" y="128" name="inst_D883DD49" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objPlayerAmbulance" x="416" y="640" name="inst_84337B24" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objZoneController" x="0" y="32" name="inst_0FFBE1E2" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objZoneSpawn" x="672" y="288" name="inst_08A987A8" locked="0" code="missionSpawn = 1&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objZoneSpawn" x="480" y="448" name="inst_05F80B82" locked="0" code="missionSpawn = 2&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objZoneSpawn" x="768" y="736" name="inst_F16BD9C1" locked="0" code="missionSpawn = 0&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objZoneSpawn" x="160" y="736" name="inst_12BCEF66" locked="0" code="missionSpawn = 3&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="objZoneSpawn" x="288" y="256" name="inst_68F4BBDB" locked="0" code="missionSpawn = 4&#xA;" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objWall" x="576" y="96" name="inst_72AF9F1A" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objWall" x="576" y="128" name="inst_574E13E0" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="objWall" x="576" y="160" name="inst_D9A03C71" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
