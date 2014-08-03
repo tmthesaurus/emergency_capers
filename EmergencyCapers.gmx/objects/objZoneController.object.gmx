@@ -25,12 +25,28 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>randomize()
+            <string>randomize();
+
 globalvar missionCount;
 missionCount = 0;
 spawnCount = instance_number(objZoneSpawn);
 missionSpawn = 0
 alarm[0] = room_speed * 3
+
+zoneSelect[0] = objZonePolice
+zoneSelect[1] = objZoneAmbulance
+zoneSelect[2] = objZoneFire
+zoneSelect[3] = objZoneFireAmbulance
+zoneSelect[4] = objZoneAmbulancePolice
+zoneSelect[5] = objZonePoliceFire
+zoneSelect[6] = objZoneFireAmbulance
+zoneSelect[7] = objZoneAmbulancePolice
+zoneSelect[8] = objZonePoliceFire
+zoneSelect[9] = objZoneFireAmbulance
+zoneSelect[10] = objZoneAmbulancePolice
+zoneSelect[11] = objZonePoliceFire
+
+zoneArray = 0
 </string>
           </argument>
         </arguments>
@@ -57,11 +73,12 @@ alarm[0] = room_speed * 3
 {
 canSpawn = true;
 missionSpawn = irandom(spawnCount)
+zoneArray = irandom(11);
 with (objZoneSpawn)
     {
     if self.missionSpawn = other.missionSpawn and other.canSpawn = true and !spawned
         {
-        instance_change(objZone,false)
+        instance_change(other.zoneSelect[other.zoneArray],true)
         missionCount++;
         spawned = true;
         other.canSpawn = false;
@@ -70,8 +87,59 @@ with (objZoneSpawn)
 }
 
 if canSpawn alarm[0] = 1;
-else alarm[0] = room_speed * 3
+else alarm[0] = room_speed * 2
 </string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_set_alpha(1)
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>703</id>
+        <kind>0</kind>
+        <userelative>-1</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_draw_score</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>0</kind>
+            <string>100</string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string>200</string>
+          </argument>
+          <argument>
+            <kind>1</kind>
+            <string>Score: </string>
           </argument>
         </arguments>
       </action>

@@ -22,6 +22,12 @@
     </objects>
     <objects name="Zone">
       <object>objects\objZone</object>
+      <object>objects\objZoneFire</object>
+      <object>objects\objZonePoliceFire</object>
+      <object>objects\objZoneAmbulance</object>
+      <object>objects\objZonePolice</object>
+      <object>objects\objZoneFireAmbulance</object>
+      <object>objects\objZoneAmbulancePolice</object>
       <object>objects\objZoneController</object>
       <object>objects\objZoneSpawn</object>
     </objects>
