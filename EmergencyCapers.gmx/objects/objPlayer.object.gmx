@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>leftStick = gamepad_axis_value(controller,gp_axislh) * -1
+            <string>leftStick = gamepad_axis_value(controller,gp_axislh)
 
 a_button = gamepad_button_check(controller,gp_face1)
 
@@ -52,33 +52,144 @@ b_button = gamepad_button_check(controller,gp_face2)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if leftStick &gt; .25 or leftStick &lt; -.25
-    direction += leftStick * turnSpeed;
+            <string>//if leftStick &gt; .25 or leftStick &lt; -.25
+//    physics_apply_torque(leftStick * 100 * 3);
 
-if a_button and !b_button
-    {
-        speed += acceleration;
+facing_x = dcos(phy_rotation)
+facing_y = dsin(phy_rotation)
+
+wheelbase = sprite_width / 8.0 * 0.45
+
+acc_x = 0
+acc_y = 0
+
+spd = phy_linear_velocity_x * facing_x + phy_linear_velocity_y * facing_y;
+
+if b_button {
+    if spd &gt;= 0 {
+        physics_apply_local_impulse(-wheelbase, 0, -min(braking,abs(spd)*phy_mass), 0);
+    } else {
+        physics_apply_local_impulse(-wheelbase, 0, -reversing*(maxReverse-spd)/maxReverse, 0);
     }
+} else if a_button {
+    if spd &gt;= 0 {
+        physics_apply_local_impulse(-wheelbase, 0, acceleration*(maxSpeed-spd)/maxSpeed, 0);
+    } else{
+        physics_apply_local_impulse(-wheelbase, 0, min(braking,abs(spd)*phy_mass), 0);
+    }
+} else {
+    physics_apply_local_impulse(-wheelbase, 0, -sign(spd)*16*deceleration, 0);
+}
 //    else speed = 0;
-if b_button and speed &gt;= 0.1
-speed -= .1;
-else if b_button and !a_button
-speed -= acceleration
+//if b_button and speed &gt;= 0.1
+//speed -= .1;
+//else if b_button and !a_button
+//speed -= acceleration
 
 
 
-    image_angle = direction;
+    //image_angle = direction;
     
 if gamepad_button_check_pressed(controller,gp_select)
 game_end();
 
 
-if speed &gt; maxSpeed
-{
-speed = maxSpeed;
+//if speed &gt; maxSpeed
+//{
+//speed = maxSpeed;
+//}
+//if speed &lt; maxReverse
+//speed = maxReverse
+
+norm_back_x = -facing_y
+norm_back_y = facing_x
+local_norm_back_x = 0
+local_norm_back_y = 1
+
+// Rear wheels
+vel_x = phy_linear_velocity_x;// - facing_y * wheelbase * phy_angular_velocity*pi/180; 
+vel_y = phy_linear_velocity_y;// + facing_x * wheelbase * phy_angular_velocity*pi/180;
+
+//spd = sqrt(vel_x*vel_x + vel_y*vel_y)
+
+//if spd &gt; 0 {
+//    dot = (vel_x*norm_x + vel_y*norm_y)/spd;
+//} else {
+//    dot = 0
+//}
+
+proj_lin_vel_back = phy_linear_velocity_x * norm_back_x + phy_linear_velocity_y * norm_back_y;
+
+stop_force = -(proj_lin_vel_back/2 - wheelbase*phy_angular_velocity*pi/180) / (1/phy_mass + wheelbase*wheelbase/phy_inertia);
+
+if abs(stop_force) &lt; sliding_friction {
+    applied_force_back = stop_force;
+} else {
+    applied_force_back = sliding_friction*sign(stop_force);
 }
-if speed &lt; maxReverse
-speed = maxReverse
+
+physics_apply_local_impulse(-wheelbase, 0, applied_force_back*local_norm_back_x, applied_force_back*local_norm_back_y);
+
+// Front wheels
+eff_wheelbase = wheelbase
+
+norm_x = -facing_y
+norm_y = facing_x
+local_norm_x = 0
+local_norm_y = 1
+
+if leftStick &gt; .25 or leftStick &lt; -.25 {
+    norm_x = -dsin(phy_rotation + leftStick*lock_angle)
+    norm_y = dcos(phy_rotation + leftStick*lock_angle)
+    local_norm_x = -dsin(leftStick*lock_angle)
+    local_norm_y = dcos(leftStick*lock_angle)
+    eff_wheelbase = wheelbase * dcos(leftStick*lock_angle)
+}
+
+proj_lin_vel = phy_linear_velocity_x * norm_x + phy_linear_velocity_y * norm_y;
+
+stop_force = -(proj_lin_vel/2 + eff_wheelbase*phy_angular_velocity*pi/180) / (1/phy_mass + eff_wheelbase*eff_wheelbase/phy_inertia);
+
+if abs(stop_force) &lt; sliding_friction {
+    applied_force = stop_force;
+} else {
+    applied_force = sliding_friction*sign(stop_force);
+}
+physics_apply_local_impulse(wheelbase, 0, applied_force*local_norm_x, applied_force*local_norm_y);
+
+//vel_x = phy_linear_velocity_x - facing_y * wheelbase * phy_angular_velocity; 
+//vel_y = phy_linear_velocity_y + facing_x * wheelbase * phy_angular_velocity;
+
+//spd = vel_x*vel_x + vel_y*vel_y
+
+//lin_vel = phy_linear_velocity_x*norm_x
+
+//wheel_friction = 16
+
+//if spd &gt; 0 {
+//    dot = vel_x*norm_x + vel_y*norm_y;
+
+//    if sign(dot) != sign(front_dot) and front_dot != 0 {
+//        front_force = front_force*abs(dot/(dot-front_dot));
+//        show_debug_message("changed sign")
+//        show_debug_message(front_force)
+//    } else {
+//        front_force = wheel_friction;
+//        show_debug_message("same sign")
+//        show_debug_message(front_force)
+//    }
+//    if sqrt(spd)*phy_mass &lt; front_force {
+//        front_force = sqrt(spd)*phy_mass;
+//        show_debug_message("overkill")
+//        show_debug_message(front_force)
+//    }
+//    physics_apply_local_impulse(wheelbase, 0, 0, front_force*sign(dot));
+
+//    front_dot = dot
+//} else {
+//    front_dot = 0
+//}
+
 </string>
           </argument>
         </arguments>
@@ -121,11 +232,37 @@ speed = maxReverse
         <relative>0</relative>
         <isnot>0</isnot>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>//draw_arrow(phy_position_x + facing_x*wheelbase*8, phy_position_y + facing_y*wheelbase*8, phy_position_x + facing_x*wheelbase*8 + wheelbase*8/2*norm_x, phy_position_y + facing_y*wheelbase*8 + wheelbase*8/2*norm_y,3);
+//draw_arrow(phy_position_x + facing_x*wheelbase*8, phy_position_y + facing_y*wheelbase*8, phy_position_x + facing_x*wheelbase*8 + vel_x, phy_position_y + facing_y*wheelbase*8 + vel_y,3);
+//draw_arrow(phy_position_x - facing_x*wheelbase*8, phy_position_y - facing_y*wheelbase*8, phy_position_x - facing_x*wheelbase*8 + applied_force_back*norm_back_x, phy_position_y - facing_y*wheelbase*8 + applied_force_back*norm_back_y,3);
+//draw_arrow(phy_position_x + facing_x*wheelbase*8, phy_position_y + facing_y*wheelbase*8, phy_position_x + facing_x*wheelbase*8 + applied_force*norm_x, phy_position_y + facing_y*wheelbase*8 + applied_force*norm_y,3);
+//draw_arrow(phy_position_x - facing_x*wheelbase*8, phy_position_y - facing_y*wheelbase*8, phy_position_x - facing_x*wheelbase*8 + acc_x, phy_position_y - facing_y*wheelbase*8 + acc_y,3);
+
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
   </events>
   <PhysicsObject>0</PhysicsObject>
   <PhysicsObjectSensor>0</PhysicsObjectSensor>
-  <PhysicsObjectShape>0</PhysicsObjectShape>
+  <PhysicsObjectShape>1</PhysicsObjectShape>
   <PhysicsObjectDensity>0.5</PhysicsObjectDensity>
   <PhysicsObjectRestitution>0.100000001490116</PhysicsObjectRestitution>
   <PhysicsObjectGroup>0</PhysicsObjectGroup>

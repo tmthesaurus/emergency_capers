@@ -9,10 +9,12 @@
     <sprite>sprites\sprite0</sprite>
     <sprite>sprites\sprite1</sprite>
     <sprite>sprites\sprite2</sprite>
+    <sprite>sprites\sprWall</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
+    <object>objects\objWall</object>
     <objects name="Player">
       <object>objects\objPlayer</object>
       <object>objects\objPlayerPolice</object>
