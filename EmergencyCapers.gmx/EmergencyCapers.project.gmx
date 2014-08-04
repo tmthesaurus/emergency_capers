@@ -32,15 +32,18 @@
       <object>objects\objZoneAmbulancePolice</object>
       <object>objects\objZoneController</object>
       <object>objects\objZoneSpawn</object>
+      <object>objects\objZoneSuppressed</object>
     </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>
   </rooms>
-  <constants number="3">
+  <constants number="5">
     <constant name="EMERGENCY_TIMEOUT">24.0</constant>
     <constant name="EMERGENCY_DELAY">8.0</constant>
     <constant name="INITIAL_EMERGENCY_DELAY">3.0</constant>
+    <constant name="EMERGENCY_SUPPRESSION_RADIUS">70</constant>
+    <constant name="EMERGENCY_RADIUS">50</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>

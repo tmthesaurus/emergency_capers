@@ -72,13 +72,13 @@ instance_change(objZoneSpawn,true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if distance_to_object(objPlayerFire) &lt; 50 and fire_scores {
+            <string>if distance_to_object(objPlayerFire) &lt; EMERGENCY_RADIUS and fire_scores {
     score += 2;
-    instance_change(objZoneSpawn,false);
-} else if (distance_to_object(objPlayerAmbulance) &lt; 50 and ambulance_scores) or
-    (distance_to_object(objPlayerPolice) &lt; 50 and police_scores) {
+    instance_change(objZoneSpawn,true);
+} else if (distance_to_object(objPlayerAmbulance) &lt; EMERGENCY_RADIUS and ambulance_scores) or
+          (distance_to_object(objPlayerPolice) &lt; EMERGENCY_RADIUS and police_scores) {
     score += 1;
-    instance_change(objZoneSpawn,false);
+    instance_change(objZoneSpawn,true);
 }
 </string>
           </argument>
@@ -103,7 +103,7 @@ instance_change(objZoneSpawn,true);
           <argument>
             <kind>1</kind>
             <string>draw_set_alpha(alarm[0] / (room_speed * EMERGENCY_TIMEOUT))
-draw_circle_colour(x, y, 50, inner_colour, outer_colour, false);
+draw_circle_colour(x, y, EMERGENCY_RADIUS, inner_colour, outer_colour, false);
 draw_set_alpha(1.0)
 </string>
           </argument>

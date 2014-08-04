@@ -25,10 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if distance_to_object(objPlayerFire) &lt; EMERGENCY_SUPPRESSION_RADIUS or
-   distance_to_object(objPlayerAmbulance) &lt; EMERGENCY_SUPPRESSION_RADIUS or
-   distance_to_object(objPlayerPolice) &lt; EMERGENCY_SUPPRESSION_RADIUS {
-    instance_change(objZoneSuppressed,true);
+            <string>if distance_to_object(objPlayerFire) &gt; EMERGENCY_SUPPRESSION_RADIUS and
+   distance_to_object(objPlayerAmbulance) &gt; EMERGENCY_SUPPRESSION_RADIUS and
+   distance_to_object(objPlayerPolice) &gt; EMERGENCY_SUPPRESSION_RADIUS {
+    instance_change(objZoneSpawn,true);
 }
 </string>
           </argument>

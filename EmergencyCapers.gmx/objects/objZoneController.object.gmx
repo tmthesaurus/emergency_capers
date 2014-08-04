@@ -75,9 +75,12 @@ zoneSelect[11] = objZonePoliceFire
     with (zoneSpawn) {
         instance_change(zoneType,true);
     }
+    
+    alarm[0] = room_speed * EMERGENCY_DELAY;
+} else {
+    alarm[0] = 1;
 }
 
-alarm[0] = room_speed * EMERGENCY_DELAY;
 
 </string>
           </argument>
