@@ -48,9 +48,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>missionCount --;
-score --;
-spawned = false;
+            <string>score --;
 instance_change(objZoneSpawn,true);
 </string>
           </argument>
@@ -75,15 +73,11 @@ instance_change(objZoneSpawn,true);
           <argument>
             <kind>1</kind>
             <string>if distance_to_object(objPlayerFire) &lt; 50 and fire_scores {
-    missionCount --;
     score += 2;
-    spawned = false;
     instance_change(objZoneSpawn,false);
 } else if (distance_to_object(objPlayerAmbulance) &lt; 50 and ambulance_scores) or
     (distance_to_object(objPlayerPolice) &lt; 50 and police_scores) {
-    missionCount --;
     score += 1;
-    spawned = false;
     instance_change(objZoneSpawn,false);
 }
 </string>
@@ -108,11 +102,9 @@ instance_change(objZoneSpawn,true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if spawned {
-    draw_set_alpha(alarm[0] / (room_speed * EMERGENCY_TIMEOUT))
-    draw_circle_colour(x, y, 50, inner_colour, outer_colour, false);
-    draw_set_alpha(1.0)
-}
+            <string>draw_set_alpha(alarm[0] / (room_speed * EMERGENCY_TIMEOUT))
+draw_circle_colour(x, y, 50, inner_colour, outer_colour, false);
+draw_set_alpha(1.0)
 </string>
           </argument>
         </arguments>
@@ -130,5 +122,8 @@ instance_change(objZoneSpawn,true);
   <PhysicsObjectFriction>0</PhysicsObjectFriction>
   <PhysicsObjectAwake>-1</PhysicsObjectAwake>
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
-  <PhysicsShapePoints/>
+  <PhysicsShapePoints>
+    <point>50,50</point>
+    <point>50,50</point>
+  </PhysicsShapePoints>
 </object>

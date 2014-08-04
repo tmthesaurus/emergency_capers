@@ -37,8 +37,10 @@
   <rooms name="rooms">
     <room>rooms\room0</room>
   </rooms>
-  <constants number="1">
+  <constants number="3">
     <constant name="EMERGENCY_TIMEOUT">24.0</constant>
+    <constant name="EMERGENCY_DELAY">8.0</constant>
+    <constant name="INITIAL_EMERGENCY_DELAY">3.0</constant>
   </constants>
   <help>
     <rtf>help.rtf</rtf>
